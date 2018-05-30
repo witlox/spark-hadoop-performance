@@ -57,7 +57,7 @@ object Performance {
         val t3 = System.nanoTime()
         log.info("seeking al primes in rdd")
         val primes = generatedData.map{ x =>
-          smallestDivisor(x) == x
+          findDivisor(x, 2) == x
         }.filter(v => v).count()
         val t4 = System.nanoTime()
         log.info()
@@ -82,23 +82,14 @@ object Performance {
     }
   }
 
-  def smallestDivisor(n : Int) : Int = {
-    findDivisor(n, 2)
-  }
-
   def findDivisor(n : Int, testDivisor : Int) : Int = {
-    if (square(testDivisor) > n) {
-      n
-    } else if (divides(testDivisor, n)) {
-      testDivisor
-    } else {
-      findDivisor(n, testDivisor + 1)
-    }
+    def square(n : Int) : Int = n * n
+    def divides(d : Int, n : Int) : Boolean = (n % d) == 0
+
+    if (square(testDivisor) > n) n
+    else if (divides(testDivisor, n)) testDivisor
+    else findDivisor(n, testDivisor + 1)
   }
-
-  def square(n : Int) : Int = n * n
-
-  def divides(d : Int, n : Int) : Boolean = (n % d) == 0
 
   case class Config(records: Int = Int.MaxValue,
                     partitions: Int = 1,
