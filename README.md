@@ -1,4 +1,4 @@
-# Extremely simplistic Spark performance testing
+# Extremely simplistic Spark performance testing [![Build Status](https://travis-ci.org/witlox/spark-hadoop-performance.svg?branch=master)](https://travis-ci.org/witlox/spark-hadoop-performance)
 
 The following happens:
 - generate a bunch of random numbers
